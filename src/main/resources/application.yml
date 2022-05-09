@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    #配置下面那行报错： Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+    #driver-class-name: com.mysql.jdbc.Driver
+#   高版本的MySQL已经不需要填写serverTimezone=CST             serverTimezone=CST&characterEncoding=utf8
+    url:
+    username: root
+    password:
+  mvc:
+    view:
+      #文件位置不能改
+      #这里写了文件夹，如果访问这个文件夹里的资源 控制层可以不用写路径  直接写资源名
+      prefix: /templates/
+      #这里写了后缀 控制层转发的时候就可以不用写后缀  .ftl是free mark的后缀
+      suffix:
+  redis:
+    host: 127.0.0.1
+    port: 16379
+
+#      # 上传文件总的最大值
+#      spring.servlet.multipart.max-request-size=20MB
+#      # 单个文件的最大值
+#      spring.servlet.multipart.max-file-size=2MB
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 2MB
+
+server:
+  port: 8888
+
+
+mybatis-plus:
+#  mapper-locations: classpath:XML/userMapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      table-prefix: v_
+  mapper-locations: classpath:com/xxx/blog/mapper/*.xml
+
+#七牛云
+qiniu:
+  accessKey:
+  accessSecretKey:

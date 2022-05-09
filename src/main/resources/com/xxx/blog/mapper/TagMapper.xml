@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--MyBatis配置文件-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xxx.blog.mapper.TagMapper">
+
+    <sql id="all1">
+        id,avatar,tag_name as tagName
+    </sql>
+
+    <select id="selectTagByArticleId" parameterType="long" resultType="com.xxx.blog.domain.Tag">
+        select <include refid="all1" />  from v_tag
+        <where>
+            id in
+            (select tag_id from v_article_tag where article_id = #{articleId})
+        </where>
+    </select>
+
+    <sql id="all2">
+        id,avatar,tag_name as tagName
+    </sql>
+    <select id="selectTagByIds" parameterType="list" resultType="com.xxx.blog.domain.Tag">
+        select <include refid="all2" />  from v_tag where id in
+        <foreach collection="tagIds" item="tagId" separator="," open="(" close=")">
+            #{tagId}
+        </foreach>
+    </select>
+
+    <select id="selectHotTagIds" parameterType="int" resultType="long">
+        select tag_id from v_article_tag at group by tag_id order by count(1) desc limit #{size}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

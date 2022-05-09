@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--MyBatis配置文件-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xxx.blog.mapper.ArchiveMapper">
+
+
+    <select id="selectList" resultType="com.xxx.blog.domain.vo.Archive">
+        select year(FROM_UNIXTIME(create_date/1000)) as year,month(FROM_UNIXTIME(create_date/1000)) as month,count(*) as count from v_article group by year,month
+    </select>
+</mapper>
